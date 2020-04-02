@@ -15,7 +15,7 @@ int convertir_annee(int anne_a_convertir)
 {
     int quatre = anne_a_convertir / 4, cent = anne_a_convertir / 100;
 
-    printf("\quatre : %d \t\t cent = %d", quatre, cent);
+    printf("\quatre : %d \t\t cent = %d\n\n", quatre, cent);
 
     return 0;
 }
@@ -52,17 +52,19 @@ int main(int argc, char argv[])
                 convertir_annee(annee);
                 break;
             }
-            case 2: // si l'utilisateur veux quittee le programme
+            case 2: // si l'utilisateur veux quittée le programme
             {
                 system("CLS");
-                printf("Merci d'avoir utilisee le programme
+                printf("Merci d'avoir utilisee le programme");
                 break;
             }
             default:
             {
                 printf("Vous avez saisi un mauvais chiffre \n");
+                break;
             }
-                return 0
+        }
+    }while(choix != 2);
 
 
     return 0;
