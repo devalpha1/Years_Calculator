@@ -2,10 +2,23 @@
    Année : 2020
    Description : Avec cette application sous dos vous
    pouvez savoir le nombre de jour convertie depuis le nombre d'année
-   pour par exemple votre date de naissance
+   pour par exemple votre date de naissance.
+   On utilise la condition si il est divisible par 4 et par 100 pour
+   savoir si il est une annee bisextille
    Ecrit : Skywashi
    License : licence libre  */
 #include <stdio.h>
+
+/* Retourne valeur de type int  et
+Paramètre de type int */
+int convertir_annee(int anne_a_convertir)
+{
+    int quatre = anne_a_convertir / 4, cent = anne_a_convertir / 100;
+
+    printf("\quatre : %d \t\t cent = %d", quatre, cent);
+
+    return 0;
+}
 
 /* La fonction main va prendre un argument dans l'avenir ...*/
 int main(int argc, char argv[])
@@ -36,6 +49,20 @@ int main(int argc, char argv[])
                 va dans la fonction convertir_annee */
                 printf("Veuillez entree votre annee : ");
                 scanf("%d", &annee);
+                convertir_annee(annee);
+                break;
+            }
+            case 2: // si l'utilisateur veux quittee le programme
+            {
+                system("CLS");
+                printf("Merci d'avoir utilisee le programme
+                break;
+            }
+            default:
+            {
+                printf("Vous avez saisi un mauvais chiffre \n");
+            }
+                return 0
 
 
     return 0;
