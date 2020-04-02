@@ -33,7 +33,7 @@ int main(int argc, char argv[])
             case 1: // si choix vaut 1
             {
                 /* Affiche le message Veuillez entree votre annee puis saisi l'annee et
-                va dans la fonction convertir_annee
+                va dans la fonction convertir_annee */
                 printf("Veuillez entree votre annee : ");
                 scanf("%d", &annee);
 
