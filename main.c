@@ -1,21 +1,30 @@
 /* Nom de projet : Years_calculator
    Année : 2020
-   Description : Avec cette application sous dos vous
+   Description : Avec cette application sous console vous
    pouvez savoir le nombre de jour convertie depuis le nombre d'année
    pour par exemple votre date de naissance.
-   On utilise la condition si il est divisible par 4 et par 100 pour
-   savoir si il est une annee bisextille
+   Pour savoir si une annee est bissextille on utilise la condition si il est
+   divisible par 4 et non divisible par 100. (rf.wikipedia)
    Ecrit : Skywashi
    License : licence libre  */
+
+
 #include <stdio.h>
 
 /* Retourne valeur de type int  et
 Paramètre de type int */
 int convertir_annee(int anne_a_convertir)
 {
-    int quatre = anne_a_convertir / 4, cent = anne_a_convertir / 100;
+    int quatre = anne_a_convertir % 4, cent = anne_a_convertir % 100;
+    short bissextile = 0; // 0 est pas bissextile 1 et bissextile
+    short quotient =  ( anne_a_convertir / 100 );
 
-    printf("\quatre : %d \t\t cent = %d\n\n", quatre, cent);
+    printf("\quatre : %d \t\t cent = %d \t\t quotient : %d\n\n", quatre, cent, quotient );
+
+    if ( cent + ( anne_a_convertir / 100 ) == anne_a_convertir )
+    {
+        printf("Divisible car %d // 100 = %d + %d\n\n **** Donc non bissextile ****", anne_a_convertir, quotient, cent);
+    }
 
     return 0;
 }
