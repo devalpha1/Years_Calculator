@@ -5,21 +5,25 @@
    pour par exemple votre date de naissance.
    Pour savoir si une annee est bissextille on utilise la condition si il est
    divisible par 4 et non divisible par 100. (rf.wikipedia)
+   Exemple 4 : divisible par 4 : 4, 8, 12, 16, 20, 24 , 28, etc...
+   Exemple : divisible par 100 : x00 et pas divisible : différent de x00 ->
+   99 pas divisible par 100 !!!
    Ecrit : Skywashi
    License : licence libre  */
 
 
 #include <stdio.h>
 
-/* Retourne valeur de type int  et
+/* Retourne valeur de type int  et prends
 Paramètre de type int */
 int convertir_annee(int anne_a_convertir)
 {
     int quatre = anne_a_convertir % 4, cent = anne_a_convertir % 100;
     short bissextile = 0; // 0 est pas bissextile 1 et bissextile
-    short quotient =  ( anne_a_convertir / 100 );
+    short quotient =  ( anne_a_convertir / 100 ), division = anne_a_convertir / 100;
 
     printf("\quatre : %d \t\t cent = %d \t\t quotient : %d\n\n", quatre, cent, quotient );
+    printf(" 100 + %d / 100 = %d\n\n", anne_a_convertir, division);
 
     if ( cent + ( anne_a_convertir / 100 ) == anne_a_convertir )
     {
