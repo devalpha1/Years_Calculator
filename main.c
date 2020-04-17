@@ -9,15 +9,16 @@
    Exemple : divisible par 100 : x00 et pas divisible : différent de x00 ->
    99 pas divisible par 100 !!!
    Ecrit : Skywashi
+   Contact : contactpro.reunion@gmail.com
    License : licence libre  */
 
 
 #include <stdio.h>
 #include <stdlib.h>
 
-/* Retourne valeur de type int  et prends 2
-Paramètre de type int */
-int convertir_annee(int anne_a_convertir, int anneeEnCours)
+/* Retourne valeur de type sort  et prends
+   un paramètre de type int */
+short estBissextile(int anne_a_convertir)
 {
     int quatre =  anne_a_convertir / 4, cent = anne_a_convertir / 100;
     int divisible4 = 0, divisible100 = 0;
@@ -28,29 +29,66 @@ int convertir_annee(int anne_a_convertir, int anneeEnCours)
     /* on le fait dans le sens inverse */
     divisible4 = 4 * quatre; divisible100 = 100 * cent;
 
-    /* si divisible par 100 donc pas bissextile !!!
+    /* si divisible par 100 donc PAS bissextile !!!
        ex : pour 2000 non car 20 * 100 = 2000 mais par 4 c'est correct !!*/
-    if ( divisible100 == anne_a_convertir ) { printf("Est pas bissextile !!!\n\n"); return 0; }
+    if ( divisible100 == anne_a_convertir )
+    {
+        printf("Est pas bissextile !!!\n\n");
+
+        return 0;
+    }
     else
     {
         printf("Est bissextile !\n\n");
+        return 1;
     }
-    return 0;
 }
+
+void parcourAnnee(short bissextile, int mois, int jour)
+{
+    short janvier[31] = {1}, fevrier[29] = {0}, mars[31] = {1}, avril[30] = {1}, mai[31] = {1};
+    short juin[30] = {1}, juillet[31] = {1}, aout[31] = {1}, septembre[30] = {1}, octobre[31] = {1};
+    short novembre[30] = {1}, decembre[31] = {1};
+
+    int i = 0; // pour le mois de février
+
+    if ( bissextile )
+    {
+        for ( i = 0 ; i < 30 ; i++ )
+        {
+            fevrier[i] = 1;
+        }
+    }
+    else
+    {
+        for ( i = 0 ; i < 29 ; i++ )
+        {
+            fevrier[i] = 1;
+        }
+    }
+
+
 
 /* La fonction main va prendre un argument dans l'avenir ...*/
 int main(int argc, char *argv[])
 {
     /*la variable choix va être le choix de quitte le programme ou faire une nouvelle
     conversion , annee pour l'annee de l'utilisateur*/
-    short choix = 0, annee = 0, anneeEnCour = 0;
+    short choix = 0, annee = 0, mois = 0, jour = 0 , anneeEnCour = 0, moisEnCours = 0, jourEnCours = 0;
+    int totalJours = 0;
     /* Ici nous disons une petit message de bienvenue à l'utilisateur,
-    puis on demande l'annee en cours et une PAUSE, on attends que l'utilisateur appuie sur une touche et
+    on demande l'annee en cours, le mois en cours, et le jours en cour et une PAUSE, on attends que l'utilisateur appuie sur une touche et
     on efface le console puis viens la boucle do */
     printf("Bienvienue sur ce petit programme de convertion d'annee en jours! \n");
+
     printf("Quel est l'annee en cour : ");
     scanf("%d", &anneeEnCour);
-    system("PAUSE");
+    printf("Quel est le mois en cour : ");
+    scanf("%d", &moisEnCours);
+    printf("Quel est jour en cour : ");
+    scanf("%d", &jourEnCours);
+
+    system("PAUSE");anneeEnCour
     system("cls");
 
     do
@@ -58,20 +96,24 @@ int main(int argc, char *argv[])
         /* Affichage du menu et le choix de l'utilisateur */
         printf("\t\t\t ==== Convertion d'annee ==== \n\n\n");
         printf("\t 1 -> Nouvelle convertion \n");
-        printf("\t 2 -> Quitte \n");
-        printf("\t\t Annee Actuel : %d\n\n", anneeEnCour);
+        printf("\t 2 -> Quitte \n\n\n");
+        printf("\t\t Date Actuel : %d-%d-%d\n\n",jourEnCours, moisEnCours, anneeEnCour);
         scanf("%d", &choix);
-
         switch(choix) // Début des condition
         {
-            case 1: // si choix vaut 1
+            case 1: // si choix vaut 1 -> l'utilisateur veux faire une conversion
             {
                 /* Affiche le message Veuillez entree votre annee puis saisi l'annee et
                 va dans la fonction convertir_annee */
                 printf("Veuillez entree votre annee de naissance : ");
                 scanf("%d", &annee);
-
-                convertir_annee(annee, anneeEnCour);
+                printf("Veuillez entree mois de naissance : ");
+                scanf("%d", &mois);
+                printf("Veuillez entree votre jours de naissance : ");
+                scanf("%d", &jour);
+                /* situé quel est le mois pour le nombre de jour */
+                short bissextile = estBissextile(annee);
+                void resultat =
                 break;
             }
             case 2: // si l'utilisateur veux quittée le programme
