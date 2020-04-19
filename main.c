@@ -17,7 +17,8 @@
 #include <stdlib.h>
 
 /* Retourne valeur de type sort  et prends
-   un paramètre de type int */
+   un paramètre de type int
+   L'utilité de cette fonction est de savoir si une année est bissextile ou pas  */
 short estBissextile(int anne_a_convertir)
 {
     int quatre =  anne_a_convertir / 4, cent = anne_a_convertir / 100;
@@ -44,11 +45,16 @@ short estBissextile(int anne_a_convertir)
     }
 }
 
-void parcourAnnee(short bissextile, int mois, int jour)
+/* Cette fonction prends comme paramètre l'année de l'utilsateur et si il est bissextile ou pas,
+   le mois et le jour de la personne ET aussi l'année, le mois, jour d'aujourd'hui */
+void parcourAnnee(short bissextile, int annee,            int mois,            int jour
+                                    int annee_maintenant, int mois_maintenant, int jour_maintenant)
 {
     short janvier[31] = {1}, fevrier[29] = {0}, mars[31] = {1}, avril[30] = {1}, mai[31] = {1};
     short juin[30] = {1}, juillet[31] = {1}, aout[31] = {1}, septembre[30] = {1}, octobre[31] = {1};
     short novembre[30] = {1}, decembre[31] = {1};
+
+    int compteur_jour = 0, i_mois = 0, i_ans = 0;
 
     int i = 0; // pour le mois de février
 
@@ -66,6 +72,33 @@ void parcourAnnee(short bissextile, int mois, int jour)
             fevrier[i] = 1;
         }
     }
+
+    if( mois == 1 ) // si le mois est janvier
+    {
+        /* cette boucle sert pour les jours dans le mois de janvier*/
+        for( i = jour+1 ; i < 32 ; i++ )
+        {
+            if( janvier[i] == 1 )
+            {
+                compteur_jour++;
+            }
+        }
+        /* Cette boucle concerne le mois de février */
+        for( i = 0      ; i < 29 ; i++ )
+        {
+            if( fevrier[i] == 1 )
+            {
+                compteur_jour++;
+            }
+        }
+
+        /* mois de mars */
+        for( i = 0      ; i < 31 ; i++ )
+        {
+
+    }
+}
+
 
 
 
@@ -113,7 +146,7 @@ int main(int argc, char *argv[])
                 scanf("%d", &jour);
                 /* situé quel est le mois pour le nombre de jour */
                 short bissextile = estBissextile(annee);
-                void resultat =
+                void resultat(bissextile,
                 break;
             }
             case 2: // si l'utilisateur veux quittée le programme
