@@ -395,34 +395,410 @@ void parcourAnnee(short bissextile, int annee,            int mois,            i
                     compteur_jour++;
                 }
             }
-
         break;
 
-        case 4:
+        case 4: // si le mois est avril
+            for( i = jour ; i < 30 ; i++ )
+            {
+                if( avril[i+1] == 1 )
+                {
+                    compteur_jour++;
+                }
+            }
+
+            // pour le mois de mai
+            for( i = 0    ; i < 31 ; i++ )
+            {
+                if( mai[i] == 1 )
+                {
+                    compteur_jour++;
+                }
+            }
+
+            // pour le mois juin
+            for( i = 0    ; i < 30 ; i++ )
+            {
+                if( juin[i] == 1 )
+                {
+                    compteur_jour++;
+                }
+            }
+
+            // pour le mois de juillet
+            for( i = 0    ; i < 31 ; i++ )
+            {
+                if( juillet[i] == 1 )
+                {
+                    compteur_jour++;
+                }
+            }
+
+            // pour le mois d'aout
+            for( i = 0    ; i < 31 ; i++ )
+            {
+                if( aout[i] == 1 )
+                {
+                    compteur_jour++;
+                }
+            }
+
+            // pour le mois de septembre
+            for( i = 0    ; i < 30 ; i++ )
+            {
+                if( septembre[i] == 1 )
+                {
+                    compteur_jour++;
+                }
+            }
+
+            // pour le mois d'octobre
+            for( i = 0    ; i < 30 ; i++ )
+            {
+                if( octobre[i] == 1 )
+                {
+                    compteur_jour++;
+                }
+            }
+
+            // pour le mois de novembre
+            for( i = 0    ; i < 30 ; i++ )
+            {
+                if( novembre[i] == 1 )
+                {
+                    compteur_jour++;
+                }
+            }
+
+            // pour le mois de décembre
+            for( i = 0    ; i < 31 ; i++ )
+            {
+                if( decembre[i] == 1 )
+                {
+                    compteur_jour++;
+                }
+            }
         break;
 
-        case 5:
+        case 5: // si le mois est mai
+            for( i = jour ; i < 31 ; i++ )
+            {
+                if( mai[i+1] == 1 )
+                {
+                    compteur_jour++;
+                }
+            }
+
+            // pour le mois juin
+            for( i = 0    ; i < 30 ; i++ )
+            {
+                if( juin[i] == 1 )
+                {
+                    compteur_jour++;
+                }
+            }
+
+            // pour le mois de juillet
+            for( i = 0    ; i < 31 ; i++ )
+            {
+                if( juillet[i] == 1 )
+                {
+                    compteur_jour++;
+                }
+            }
+
+            // pour le mois d'aout
+            for( i = 0    ; i < 31 ; i++ )
+            {
+                if( aout[i] == 1 )
+                {
+                    compteur_jour++;
+                }
+            }
+
+            // pour le mois de septembre
+            for( i = 0    ; i < 30 ; i++ )
+            {
+                if( septembre[i] == 1 )
+                {
+                    compteur_jour++;
+                }
+            }
+
+            // pour le mois d'octobre
+            for( i = 0    ; i < 31 ; i++ )
+            {
+                if ( octobre[i] == 1 )
+                {
+                    compteur_jour++;
+                }
+            }
+
+            // pour le mois de novembre
+            for( i = 0    ; i < 30 ; i++ )
+            {
+                if( novembre[i] == 1 )
+                {
+                    compteur_jour++;
+                }
+            }
+
+            // pour le mois de décembre
+            for( i = 0    ; i < 31 ; i++ )
+            {
+                if( decembre[i] == 1 )
+                {
+                    compteur_jour++;
+                }
+            }
         break;
 
-        case 6:
+        case 6: // si le mois est juin
+            for( i = jour ; i < 30 ; i++ )
+            {
+                if( juin[i+1] == 1 )
+                {
+                    compteur_jour++;
+                }
+            }
+
+            // pour le mois de juillet
+            for( i = 0     i < 31 ; i++ )
+            {
+                if( juillet[i] == 1 )
+                {
+                    compteur_jour++;
+                }
+            }
+
+            // pour le mois d'aout
+            for( i = 0   ; i < 31 ; i++)
+            {
+                if( aout[i] == 1 )
+                {
+                    compteur_jour++;
+                }
+            }
+
+            // pour le mois de septembre
+            for( i = 0    ; i < 30 ; i++ )
+            {
+                if ( septembre[i] == 1 )
+                {
+                    compteur_jour++;
+                }
+            }
+
+            // pour le mois d'octobre
+            for( i = 0    ; i < 31 ; i++ )
+            {
+                if( octobre[i] == 1 )
+                {
+                    compteur_jour++;
+                }
+            }
+
+            // pour le mois de novembre
+            for( i = 0    ; i < 30 ; i++ )
+            {
+                if( novembre[i] == 1 )
+                {
+                    compteur_jour++;
+                }
+            }
+
+            // pour le mois de décembre
+            for( i = 0    ; i < 31 ; i++ )
+            {
+                if( decembre[i] == 1 )
+                {
+                    compteur_jour++;
+                }
+            }
         break;
 
-        case 7:
+        case 7: // si le mois est juillet
+            for( i = jour ; i < 31 ; i++ )
+            {
+                if( juillet[i+1] == 1 )
+                {
+                    compteur_jour++;
+                }
+            }
+
+            // pour le mois d'aout
+            for( i = 0    ; i < 31 ; i++ )
+            {
+                if( aout[i] == 1 )
+                {
+                    compteur_jour++;
+                }
+            }
+
+            // pour le mois de septembre
+            for( i = 0    ; i < 30 ; i++ )
+            {
+                if( septembre[i] == 1 )
+                {
+                    compteur_jour++;
+                }
+            }
+
+            // pour le mois de novembre
+            for( i = 0    ; i < 30 ; i++ )
+            {
+                if( novembre[i] == 1 )
+                {
+                    compteur_jour++;
+                }
+            }
+
+            // pour le mois de decembre
+            for( i = 0    ; i < 31 ; i++ )
+            {
+                if( decembre[i] == 1 )
+                {
+                    compteur_jour++;
+                }
+            }
         break;
 
-        case 8:
+        case 8: // si le mois est aout
+            for( i = jour ; i < 31 ; i++ )
+            {
+                if( aout[i+1] == 1)
+                {
+                    compteur_jour++;
+                }
+            }
+
+            // pour le mois de septembre
+            for( i = 0    ; i < 30 ; i++ )
+            {
+                if( septembre[i] == 1 )
+                {
+                    compteur_jour++;
+                }
+            }
+
+            // pour le mois d'octobre
+            for( i = 0    ; i < 31 ; i++ )
+            {
+                if( octobre[i] == 1 )
+                {
+                    compteur_jour++;
+                }
+            }
+
+            // pour le mois de novembre
+            for( i = 0    ; i < 30 ; i++ )
+            {
+                if( novembre[i] == 1 )
+                {
+                    compteur_jour++;
+                }
+            }
+
+            // pour le mois de décembre
+            for( i = 0    ; i < 31 ; i++ )
+            {
+                if( decembre[i] == 1 )
+                {
+                    compteur_jour++;
+                }
+            }
         break;
 
-        case 9:
+        case 9: // si le mois est septembre
+            for( i = jour ; i < 30 ; i++ )
+            {
+                if( septembre[i+1] == 1 )
+                {
+                    compteur_jour++;
+                }
+            }
+
+            // pour le mois d'octobre
+            for( i = 0    ; i < 31 ; i++ )
+            {
+                if( octobre[i] == 1 )
+                {
+                    compteur_jour++;
+                }
+            }
+
+            // pour le mois de novembre
+            for( i = 0    ; i < 30 ; i++ )
+            {
+                if( novembre[i] == 1 )
+                {
+                    compteur_jour++:
+                }
+            }
+
+            // pour le mois de décembre
+            for( i = 0    ; i < 31 ; i++ )
+            {
+                if( decembre[i] == 1 )
+                {
+                    compteur_jour++;
+                }
+            }
         break;
 
-        case 10:
+        case 10: // si le mois est octobre
+            for ( i = jour ; i < 31 ; i++ )
+            {
+                if( octobre[i+1] == 1 )
+                {
+                    compteur_jour++;
+                }
+            }
+
+            // pour le mois de novembre
+            for( i = 0    ; i < 30 ; i++ )
+            {
+                if( novembre[i] == 1 )
+                {
+                    compteur_jour++;
+                }
+            }
+
+            // pour le mois de décembre
+            for( i = 0    ; i < 31 ; i++ )
+            {
+                if( decembre[i] == 1 )
+                {
+                    compteur_jour++;
+                }
+            }
         break;
 
-        case 11:
-        break;
+        case 11: // si le mois est novembre
+            for( i = jour ; i < 30 ; i++ )
+            {
+                if( novembre[i+1] == 1 )
+                {
+                    compteur_jour++;
+                }
+            }
 
-        case 12:
+            // pour le mois de décembre
+            for( i = 0    ; i < 31 ; i++ )
+            {
+                if( decembre[i] == 1 )
+                {
+                    compteur_jour++;
+                }
+            }
+        break;
+        case 12: // si le mois est decembre
+            for( i = jour ; i < 31 ; i++ )
+            {
+                if( decembre[i+1] == 1 )
+                {
+                    compteur_jour++;
+                }
+            }
         break;
 
     }
