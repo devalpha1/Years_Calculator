@@ -843,7 +843,7 @@ int parcourAnnee(short bissextile, int annee,            int mois,            in
         for( i = 0 ; i < 31 ; i++ ) /* pour le mois de janvier :  */
         {
             if( i_mois == mois_maintenant &&
-                i_jour == jour_maintenant &&
+                i_jour == jour_maintenant+2 &&
                 i_ans  == annee_maintenant   )
             {
                 // Si c'est le mois janvier et un jour spécifique au janvier donc cette CONDITION s'active
@@ -862,7 +862,7 @@ int parcourAnnee(short bissextile, int annee,            int mois,            in
         for( i = 0 ; i < moisFevrier(i_ans) ; i++ ) /* pour le mois de janvier : */
         {
             if( i_mois == mois_maintenant &&
-                i_jour == jour_maintenant &&
+                i_jour == jour_maintenant+2 &&
                 i_ans  ==  annee_maintenant    )
             {
                 // Si c'est le mois de février et un jour spécifique au février donc cette Condition s'active
@@ -881,7 +881,7 @@ int parcourAnnee(short bissextile, int annee,            int mois,            in
         for( i = 0 ; i < 31 ; i++ ) /* pour le mois de mars : */
         {
             if( i_mois == mois_maintenant &&
-                i_jour == jour_maintenant &&
+                i_jour == jour_maintenant+2 &&
                 i_ans  == annee_maintenant    )
             {
                 // Si c'est le mois de mars et un jour spécifique au mars dobc cette CONDITION s'active
@@ -900,7 +900,7 @@ int parcourAnnee(short bissextile, int annee,            int mois,            in
         for( i = 0 ; i < 30 ; i++ )
         {
             if( i_mois == mois_maintenant &&
-                i_jour == jour_maintenant &&
+                i_jour == jour_maintenant+2 &&
                 i_ans  == annee_maintenant    )
             {
                 // Si c'est le mois d'avril et un jour spéicifique au avril donc cette CONDITION s'active
@@ -919,7 +919,7 @@ int parcourAnnee(short bissextile, int annee,            int mois,            in
         for( i = 0 ; i < 31 ; i++ )
         {
             if( i_mois == mois_maintenant &&
-                i_jour == jour_maintenant &&
+                i_jour == jour_maintenant+2 &&
                 i_ans  == annee_maintenant    )
             {
                 return compteur_jour;
@@ -937,7 +937,7 @@ int parcourAnnee(short bissextile, int annee,            int mois,            in
         for( i = 0 ; i < 30 ; i++ )
         {
             if( i_mois == mois_maintenant &&
-                i_jour == jour_maintenant &&
+                i_jour == jour_maintenant+2 &&
                 i_ans  == annee_maintenant    )
             {
                 //
@@ -956,7 +956,7 @@ int parcourAnnee(short bissextile, int annee,            int mois,            in
         for( i = 0 ; i < 31 ; i++ )
         {
             if( i_mois == mois_maintenant &&
-                i_jour == jour_maintenant &&
+                i_jour == jour_maintenant+2 &&
                 i_ans  == annee_maintenant    )
             {
                 //
@@ -975,7 +975,7 @@ int parcourAnnee(short bissextile, int annee,            int mois,            in
         for( i = 0 ; i < 31 ; i++ )
         {
             if( i_mois == mois_maintenant &&
-                i_jour == jour_maintenant &&
+                i_jour == jour_maintenant+2 &&
                 i_ans  == annee_maintenant    )
             {
                 //
@@ -994,7 +994,7 @@ int parcourAnnee(short bissextile, int annee,            int mois,            in
         for( i = 0 ; i < 30 ; i++ )
         {
             if( i_mois == mois_maintenant &&
-                i_jour == jour_maintenant &&
+                i_jour == jour_maintenant+2 &&
                 i_ans  == annee_maintenant    )
             {
                 //
@@ -1013,7 +1013,7 @@ int parcourAnnee(short bissextile, int annee,            int mois,            in
         for ( i = 0 ; i < 31 ; i++ )
         {
             if( i_mois == mois_maintenant &&
-                i_jour == jour_maintenant &&
+                i_jour == jour_maintenant+2 &&
                 i_ans  == annee_maintenant   )
             {
                 //
@@ -1032,7 +1032,7 @@ int parcourAnnee(short bissextile, int annee,            int mois,            in
         for( i = 0 ; i < 30 ; i++ )
         {
             if( i_mois == mois_maintenant &&
-                i_jour == jour_maintenant &&
+                i_jour == jour_maintenant+2 &&
                 i_ans  == annee_maintenant   )
                 {
                    //
@@ -1051,7 +1051,7 @@ int parcourAnnee(short bissextile, int annee,            int mois,            in
         for( i = 0 ; i < 31 ; i++ )
         {
             if( i_mois == mois_maintenant &&
-                i_jour == jour_maintenant &&
+                i_jour == jour_maintenant+2 &&
                 i_ans  == annee_maintenant   )
             {
                 //
