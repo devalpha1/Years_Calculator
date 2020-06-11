@@ -31,6 +31,7 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="Nombre de jour mois.txt" />
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>

@@ -21,7 +21,7 @@
 /* Retourne valeur de type sort  et prends
    un paramètre de type int
    L'utilité de cette fonction est de savoir si une année est bissextile ou pas  */
-short estBissextile(int anne_a_convertir)
+void estBissextile(int anne_a_convertir, short *bissextile)
 {
     int quatre =  anne_a_convertir / 4, cent = anne_a_convertir / 100;
     int divisible4 = 0, divisible100 = 0, reste_quatre = anne_a_convertir % 4, reste_cent = anne_a_convertir % 100;
@@ -29,7 +29,7 @@ short estBissextile(int anne_a_convertir)
 
     /* quatre vaudra le quotient de l'année à divisé */
 
-    printf("Quatre : %ld -- Cent : %ld\n\n", quatre, cent);
+    printf("Quatre : %d -- Cent : %d\n\n", quatre, cent);
     /* Après cette ligne on voit si il est divisible ou pas */
     /* on le fait dans le sens inverse */
     divisible4 = 4 * quatre + reste_quatre; divisible100 = 100 * cent + reste_cent;
@@ -39,44 +39,201 @@ short estBissextile(int anne_a_convertir)
     if ( divisible100 == anne_a_convertir )
     {
         printf("Est pas bissextile !!!\n\n");
-
-        return 0;
+        *bissextile = 0;
     }
     else
     {
         printf("Est bissextile !\n\n");
-        return 1;
+        *bissextile = 1;
     }
 }
 
 /* Cette fonction est pour le moi de février */
-int moisFevrier(int annee_convertir)
+int moisFevrier(int annee_convertir,int *compteur_jour, int jour )
 {
     int quatre = annee_convertir / 4 , cent = annee_convertir / 100, divisible100 = 0;
     int reste_cent = annee_convertir % 100;
+    int nombreDeJourAParcourir = 0;
 
     divisible100 = 100 * cent + reste_cent;
 
     if( divisible100 == annee_convertir )
     {
-        return 28;
+        nombreDeJourAParcourir = 28;
     }
     else
     {
-        return 29;
+        nombreDeJourAParcourir = 29;
+
     }
+
+    *compteur_jour = nombreDeJourAParcourir - jour;
+}
+
+void calculeAnnee(int *tableauAnnee, int *compteur_jour)
+{
+    int i = 0, addition = 0;
+
+    while( tableauAnnee[i] != -1 )
+    {
+        if (tableauAnnee[i] == 0)
+        {
+            addition = addition + 365;
+        }
+        else
+        {
+            addition = addition + 366;
+        }
+        i++;
+    }
+
+    *compteur_jour = addition;
+}
+
+void moisActuel(short *mois, int *premierMois, int *jour, int *compteur_jour )
+{
+    int nombreDeJourAParcourir = 0;
+
+    if( *mois == 1 || *mois == 3 || *mois == 5 || *mois == 7 ||
+        *mois == 10 || *mois == 12)
+    {
+        nombreDeJourAParcourir = 30;
+    }
+    else if ( *mois == 4 || *mois == 6 || *mois == 9 || *mois == 11 )
+    {
+        nombreDeJourAParcourir = 29;
+    }
+
+    if(*premierMois == 1)
+    {
+        *compteur_jour = nombreDeJourAParcourir - *jour;
+    }
+
+}
+
+void anneeSuivant(int *annee_maintenant, int *annee, int *compteur_jour)
+{
+    int tableauAnnee[200] = {-1}, i = 0, stockAnnee = annee;
+
+    int *pTableauAnnee = NULL;
+
+    short bissextile = 0;
+
+    stockAnnee++;
+
+    for( i = 0 ; i < 200 ; i++ )
+    {
+        tableauAnnee[i] = -1;
+    }
+
+    i = 0;
+
+    pTableauAnnee = tableauAnnee;
+
+    /* va déterminté si la deuxième année est bossextile */
+    estBissextile(stockAnnee, &bissextile);
+
+    if ( bissextile )
+    {
+        tableauAnnee[i] = 1;
+    }
+    else
+    {
+        tableauAnnee[i] = 0;
+    }
+
+    i++;
+    stockAnnee++;
+
+    while( stockAnnee != *annee_maintenant )
+    {
+        estBissextile(stockAnnee, &bissextile);
+
+        if ( bissextile )
+        {
+            tableauAnnee[i] = 1;
+        }
+        else
+        {
+            tableauAnnee[i] = 0;
+        }
+
+        i++;
+        stockAnnee++;
+    }
+
+    calculeAnnee(pTableauAnnee, compteur_jour);
+
+}
+
+void soustractionDerniereAnnee(int *annee_maintenant, int *mois_maintenant, int *jour_maintenant,
+                               int *resultat_addition)
+{
+    /* pour savoir si la dernière année est bissextile */
+    int bissextile = 0, i = 0, j = 0, nombreDeJourARajoute = 0;
+
+    estBissextile(annee_maintenant, bissextile);
+
+    for ( i = 1 ; i < *mois_maintenant+1 ; i++ )
+    {
+        if( i == 1 || i == 3 || i == 5 || i == 5 || i == 7 ||
+            i == 10 || i == 12 )
+        {
+            for( j = 1 ; j < 30+1 ; j++, nombreDeJourARajoute++ )
+            {
+                if( *mois_maintenant == i && *jour_maintenant == j )
+                {
+                    break;
+                }
+            }
+        }
+        else if( i == 4 || i == 6 || i = 9 || i == 11 )
+        {
+            for( j = 1 ; j < 29+1 ; j++, nombreDeJourARajoute++ )
+            {
+                if( *mois_maintenant == i && *jour_maintenant == j )
+                {
+                    break;
+                }
+            }
+        }
+        else if( i == 2 )
+        {
+            if ( bissextile )
+            {
+                for( j = 1 ; j < 29+1 ; j++, nombreDeJourARajoute++ )
+                {
+                    if( *mois_maintenant == i && *jour_maintenant == j )
+                    {
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                for( j = 1 ; j < 28+1 ; j++, nombreDeJourARajoute++ )
+                {
+                    if( *mois_maintenant == i && *jour_maintenant == j )
+                    {
+                        break;
+                    }
+                }
+            }
+        }
+    }
+    *resultat_addition = nombreDeJourARajoute;
 }
 
 /* Cette fonction prends comme paramètre l'année de l'utilsateur et si il est bissextile ou pas,
    le mois et le jour de la personne ET aussi l'année, le mois, jour d'aujourd'hui */
-int parcourAnnee(short bissextile, int annee,            int mois,            int jour,
-                                    int annee_maintenant, int mois_maintenant, int jour_maintenant)
+int parcourAnnee(short *bissextile, int *annee,            int *mois,            int *jour,
+                                    int *annee_maintenant, int *mois_maintenant, int *jour_maintenant)
 {
     short janvier[31] = {1}, fevrier[29] = {0}, mars[31] = {1}, avril[30] = {1}, mai[31] = {1};
     short juin[30] = {1}, juillet[31] = {1}, aout[31] = {1}, septembre[30] = {1}, octobre[31] = {1};
     short novembre[30] = {1}, decembre[31] = {1};
 
-    int compteur_jour = 0, i_mois = 0, i_ans = 0, i_jour;
+    int compteur_jour = 0, i_mois = 0, i_ans = 0, i_jour, resultat_addition;
 
     int i = 0; // pour le mois de février
 
@@ -113,726 +270,103 @@ int parcourAnnee(short bissextile, int annee,            int mois,            in
         novembre[i] = 1;
     }
 
-    if( mois == 1 ) // si le mois est janvier
+    switch(*mois)
     {
-        /* cette boucle sert pour les jours dans le mois de janvier */
-        for( i = jour ; i < 32 ; i++ )
-        {
-            if( janvier[i+1] == 1 ) /* pourquoi +1 car c'est pour le jour prochain */
+        case 1:
+            moisActuel(mois, 1, jour, &compteur_jour);
+            for( i_mois = *mois+1 ; i_mois < 13 ; i_mois++)
             {
-                compteur_jour++;
+                moisActuel(&i_mois, 0, jour, &compteur_jour);
             }
-        }
-
-        /* Cette boucle concerne le mois de février */
-        for( i = 0     ; i < 29 ; i++ )
-        {
-            if( fevrier[i] == 1 )
+        break;
+        case 2:
+            moisFevrier(annee, &compteur_jour, jour);
+            for( i_mois = *mois+1 ; i_mois < 13 ; i_mois++)
             {
-                compteur_jour++;
+                moisActuel(&i_mois, 0, jour, &compteur_jour);
             }
-        }
-
-        /* mois de mars */
-        for( i = 0      ; i < 31 ; i++ )
-        {
-            if( mars[i]    == 1 )
-            {
-                compteur_jour++;
-            }
-        }
-
-        /* mois d'avril */
-        for( i = 0     ; i < 30 ; i++ )
-        {
-            if( avril[i]  == 1 )
-            {
-                compteur_jour++;
-            }
-        }
-
-        /* mois de mai */
-        for( i = 0     ; i < 31; i ++ )
-        {
-            if( mai[i] == 1 )
-            {
-                compteur_jour++;
-            }
-        }
-
-        /* mois de juin */
-        for( i = 0     ; i < 29 ; i++ )
-        {
-            if( juin[i] == 1 )
-            {
-                compteur_jour++;
-            }
-        }
-
-        /* mois de juillet  */
-
-        for( i = 0     ; i < 31 ;  i++ )
-        {
-            if( juillet[i] == 1 )
-            {
-                compteur_jour++;
-            }
-        }
-
-        /* mois de août */
-        for( i = 0     ; i < 31 ; i++ )
-        {
-            if( aout[i] == 1 )
-            {
-                compteur_jour++;
-            }
-        }
-
-        /* mois de septembre */
-        for( i = 0     ; i < 30 ; i++ )
-        {
-            if( septembre[i] == 1 )
-            {
-                compteur_jour++;
-            }
-        }
-
-        /* mois d'octobre */
-        for( i = 0     ; i < 30 ; i++ )
-        {
-            if( octobre[i] == 1 )
-            {
-                compteur_jour++;
-            }
-        }
-
-        /* mois de novembre */
-        for( i = 0     ; i < 30 ; i++ )
-        {
-            if( novembre[i] == 1 )
-            {
-                compteur_jour++;
-            }
-        }
-
-        /* mois de décembre */
-        for( i = 0     ; i < 30 ; i++ )
-        {
-            if( decembre[i] == 1 )
-            {
-                compteur_jour++;
-            }
-
-        }
-
-    }
-    // fin de condition pour le mois de janvier
-
-    if( mois == 2 ) // si le mois est février
-    {
-        // cette boucle concerne le mois de février
-        for( i = jour  ; i < 30 ; i++ )
-        {
-            if( fevrier[i+1] == 1 )
-            {
-                compteur_jour++;
-            }
-        }
-
-        // cette boucle est pour le mois de mars
-        for( i = 0     ; i < 31 ; i ++)
-        {
-            if( mars[i] == 1 )
-            {
-                compteur_jour++;
-            }
-        }
-
-        // pour le mois d'avril
-        for( i = 0     ; i < 30 ; i++ )
-        {
-            if( avril[i] == 1 )
-            {
-                compteur_jour++;
-            }
-        }
-
-        // pour le mois de mai
-        for( i = 0      ; i < 31 ; i++ )
-        {
-            if( mai[i] == 1 )
-            {
-                compteur_jour++;
-            }
-        }
-
-        // pour le mois de juin
-        for( i = 0     ; i <  30 ; i++ )
-        {
-            if( juin[i] == 1 )
-            {
-                compteur_jour++;
-            }
-        }
-
-        // pour le mois de juillet
-        for( i = 0     ; i < 31 ; i++ )
-        {
-            if( juillet[i] == 1)
-            {
-                compteur_jour++;
-            }
-        }
-
-        // pour le mois d'aout
-        for( i = 0      ; i < 31 ; i++ )
-        {
-            if( aout[i] == 1 )
-            {
-                compteur_jour++;
-            }
-        }
-
-        // pour le mois de septembre
-        for( i = 0     ; i < 30 ; i++ )
-        {
-            if( septembre[i] == 1)
-            {
-                compteur_jour++;
-            }
-        }
-
-        // pour le mois d'octobre
-        for( i = 0     ; i < 31 ; i++ )
-        {
-            if( octobre[i] == 1 )
-            {
-                compteur_jour++;
-            }
-        }
-
-        // pour le mois de novembre
-        for( i = 0     ; i < 30 ; i++ )
-        {
-            if( novembre[i] == 1 )
-            {
-                compteur_jour++;
-            }
-        }
-
-        // pour le mois de décembre
-        for( i = 0     ; i < 31 ; i++ )
-        {
-            if( decembre[i] == 1 )
-            {
-                compteur_jour++;
-            }
-        }
-
-    }
-    // fin de condition pour le mois de février
-
-    switch(mois) /* simplification avec un switch */
-    {
+        break;
         case 3: // si le mois est mars
-            for( i = jour ; i < 31 ; i++)
+            moisActuel(mois, 1, jour, &compteur_jour);
+            for( i_mois = *mois+1 ; i_mois < 13 ; i_mois++)
             {
-                if( mars[i+1] == 1 )
-                {
-                    compteur_jour++;
-                }
-            }
-
-            // pour le mois d'avril
-            for( i = 0    ; i < 30 ; i++)
-            {
-                if( avril[i] == 1 )
-                {
-                    compteur_jour++;
-                }
-            }
-
-            // pour le mois de mai
-            for( i = 0    ; i < 31 ; i++ )
-            {
-                if( mai[i] == 1 )
-                {
-                    compteur_jour++;
-                }
-            }
-
-            // pour le mois de juin
-            for( i = 0    ; i < 30 ; i++)
-            {
-                if( juin[i] == 1 )
-                {
-                    compteur_jour++;
-                }
-            }
-
-            // pour le mois de juillet
-            for( i = 0    ; i < 31 ; i++ )
-            {
-                if( juillet[i] == 1 )
-                {
-                    compteur_jour++;
-                }
-            }
-
-            // pour le mois d'aout
-            for( i = 0    ; i < 31 ; i++ )
-            {
-                if( aout[i] == 1 )
-                {
-                    compteur_jour++;
-                }
-            }
-
-            // pour le mois de septembre
-            for( i = 0    ; i < 30 ; i++ )
-            {
-                if( septembre[i] == 1 )
-                {
-                    compteur_jour++;
-                }
-            }
-
-            // pour le mois de octobre
-            for( i = 0    ; i < 31 ; i++ )
-            {
-                if( octobre[i] == 1 )
-                {
-                    compteur_jour++;
-                }
-            }
-
-            // pour le mois de novembre
-            for( i = 0    ; i < 30 ; i++ )
-            {
-                if( novembre[i] == 1 )
-                {
-                    compteur_jour++;
-                }
-            }
-
-            // pour le mois dé décembre
-            for( i = 0    ; i < 31 ; i++ )
-            {
-                if( decembre[i] == 1 )
-                {
-                    compteur_jour++;
-                }
+                moisActuel(&i_mois, 0, jour, &compteur_jour);
             }
         break;
-
         case 4: // si le mois est avril
-            for( i = jour ; i < 30 ; i++ )
+            moisActuel(mois, 1, jour, &compteur_jour);
+            for( i_mois = *mois+1 ; i_mois < 13 ; i_mois++)
             {
-                if( avril[i+1] == 1 )
-                {
-                    compteur_jour++;
-                }
-            }
-
-            // pour le mois de mai
-            for( i = 0    ; i < 31 ; i++ )
-            {
-                if( mai[i] == 1 )
-                {
-                    compteur_jour++;
-                }
-            }
-
-            // pour le mois juin
-            for( i = 0    ; i < 30 ; i++ )
-            {
-                if( juin[i] == 1 )
-                {
-                    compteur_jour++;
-                }
-            }
-
-            // pour le mois de juillet
-            for( i = 0    ; i < 31 ; i++ )
-            {
-                if( juillet[i] == 1 )
-                {
-                    compteur_jour++;
-                }
-            }
-
-            // pour le mois d'aout
-            for( i = 0    ; i < 31 ; i++ )
-            {
-                if( aout[i] == 1 )
-                {
-                    compteur_jour++;
-                }
-            }
-
-            // pour le mois de septembre
-            for( i = 0    ; i < 30 ; i++ )
-            {
-                if( septembre[i] == 1 )
-                {
-                    compteur_jour++;
-                }
-            }
-
-            // pour le mois d'octobre
-            for( i = 0    ; i < 30 ; i++ )
-            {
-                if( octobre[i] == 1 )
-                {
-                    compteur_jour++;
-                }
-            }
-
-            // pour le mois de novembre
-            for( i = 0    ; i < 30 ; i++ )
-            {
-                if( novembre[i] == 1 )
-                {
-                    compteur_jour++;
-                }
-            }
-
-            // pour le mois de décembre
-            for( i = 0    ; i < 31 ; i++ )
-            {
-                if( decembre[i] == 1 )
-                {
-                    compteur_jour++;
-                }
+                moisActuel(&i_mois, 0, jour, &compteur_jour);
             }
         break;
-
         case 5: // si le mois est mai
-            for( i = jour ; i < 31 ; i++ )
+            moisActuel(mois, 1, jour, &compteur_jour);
+            for( i_mois = *mois+1 ; i_mois < 13 ; i_mois++)
             {
-                if( mai[i+1] == 1 )
-                {
-                    compteur_jour++;
-                }
-            }
-
-            // pour le mois juin
-            for( i = 0    ; i < 30 ; i++ )
-            {
-                if( juin[i] == 1 )
-                {
-                    compteur_jour++;
-                }
-            }
-
-            // pour le mois de juillet
-            for( i = 0    ; i < 31 ; i++ )
-            {
-                if( juillet[i] == 1 )
-                {
-                    compteur_jour++;
-                }
-            }
-
-            // pour le mois d'aout
-            for( i = 0    ; i < 31 ; i++ )
-            {
-                if( aout[i] == 1 )
-                {
-                    compteur_jour++;
-                }
-            }
-
-            // pour le mois de septembre
-            for( i = 0    ; i < 30 ; i++ )
-            {
-                if( septembre[i] == 1 )
-                {
-                    compteur_jour++;
-                }
-            }
-
-            // pour le mois d'octobre
-            for( i = 0    ; i < 31 ; i++ )
-            {
-                if ( octobre[i] == 1 )
-                {
-                    compteur_jour++;
-                }
-            }
-
-            // pour le mois de novembre
-            for( i = 0    ; i < 30 ; i++ )
-            {
-                if( novembre[i] == 1 )
-                {
-                    compteur_jour++;
-                }
-            }
-
-            // pour le mois de décembre
-            for( i = 0    ; i < 31 ; i++ )
-            {
-                if( decembre[i] == 1 )
-                {
-                    compteur_jour++;
-                }
+                moisActuel(&i_mois, 0, jour, &compteur_jour);
             }
         break;
-
         case 6: // si le mois est juin
-            for( i = jour ; i < 30 ; i++ )
+            moisActuel(mois, 1, jour, &compteur_jour);
+            for( i_mois = *mois+1 ; i_mois < 13 ; i_mois++)
             {
-                if( juin[i+1] == 1 )
-                {
-                    compteur_jour++;
-                }
-            }
-
-            // pour le mois de juillet
-            for( i = 0    ; i < 31 ; i++ )
-            {
-                if( juillet[i] == 1 )
-                {
-                    compteur_jour++;
-                }
-            }
-
-            // pour le mois d'aout
-            for( i = 0   ; i < 31 ; i++)
-            {
-                if( aout[i] == 1 )
-                {
-                    compteur_jour++;
-                }
-            }
-
-            // pour le mois de septembre
-            for( i = 0    ; i < 30 ; i++ )
-            {
-                if ( septembre[i] == 1 )
-                {
-                    compteur_jour++;
-                }
-            }
-
-            // pour le mois d'octobre
-            for( i = 0    ; i < 31 ; i++ )
-            {
-                if( octobre[i] == 1 )
-                {
-                    compteur_jour++;
-                }
-            }
-
-            // pour le mois de novembre
-            for( i = 0    ; i < 30 ; i++ )
-            {
-                if( novembre[i] == 1 )
-                {
-                    compteur_jour++;
-                }
-            }
-
-            // pour le mois de décembre
-            for( i = 0    ; i < 31 ; i++ )
-            {
-                if( decembre[i] == 1 )
-                {
-                    compteur_jour++;
-                }
+                moisActuel(&i_mois, 0, jour, &compteur_jour);
             }
         break;
-
         case 7: // si le mois est juillet
-            for( i = jour ; i < 31 ; i++ )
+            moisActuel(*mois, 1, jour, &compteur_jour);
+            for( i_mois = *mois+1 ; i_mois < 13 ; i_mois++)
             {
-                if( juillet[i+1] == 1 )
-                {
-                    compteur_jour++;
-                }
-            }
-
-            // pour le mois d'aout
-            for( i = 0    ; i < 31 ; i++ )
-            {
-                if( aout[i] == 1 )
-                {
-                    compteur_jour++;
-                }
-            }
-
-            // pour le mois de septembre
-            for( i = 0    ; i < 30 ; i++ )
-            {
-                if( septembre[i] == 1 )
-                {
-                    compteur_jour++;
-                }
-            }
-
-            // pour le mois de novembre
-            for( i = 0    ; i < 30 ; i++ )
-            {
-                if( novembre[i] == 1 )
-                {
-                    compteur_jour++;
-                }
-            }
-
-            // pour le mois de decembre
-            for( i = 0    ; i < 31 ; i++ )
-            {
-                if( decembre[i] == 1 )
-                {
-                    compteur_jour++;
-                }
+                moisActuel(&i_mois, 0, jour, &compteur_jour);
             }
         break;
-
         case 8: // si le mois est aout
-            for( i = jour ; i < 31 ; i++ )
-            {
-                if( aout[i+1] == 1)
-                {
-                    compteur_jour++;
-                }
-            }
+            moisActuel(mois, 1, jour, &compteur_jour);
 
-            // pour le mois de septembre
-            for( i = 0    ; i < 30 ; i++ )
+            for( i_mois = *mois+1 ; i_mois < 13 ; i_mois++)
             {
-                if( septembre[i] == 1 )
-                {
-                    compteur_jour++;
-                }
-            }
-
-            // pour le mois d'octobre
-            for( i = 0    ; i < 31 ; i++ )
-            {
-                if( octobre[i] == 1 )
-                {
-                    compteur_jour++;
-                }
-            }
-
-            // pour le mois de novembre
-            for( i = 0    ; i < 30 ; i++ )
-            {
-                if( novembre[i] == 1 )
-                {
-                    compteur_jour++;
-                }
-            }
-
-            // pour le mois de décembre
-            for( i = 0    ; i < 31 ; i++ )
-            {
-                if( decembre[i] == 1 )
-                {
-                    compteur_jour++;
-                }
+                moisActuel(&i_mois, 0, jour, &compteur_jour);
             }
         break;
-
         case 9: // si le mois est septembre
-            for( i = jour ; i < 30 ; i++ )
+            moisActuel(mois, 1, jour, &compteur_jour);
+            for( i_mois = *mois+1 ; i_mois < 13 ; i_mois++)
             {
-                if( septembre[i+1] == 1 )
-                {
-                    compteur_jour++;
-                }
-            }
-
-            // pour le mois d'octobre
-            for( i = 0    ; i < 31 ; i++ )
-            {
-                if( octobre[i] == 1 )
-                {
-                    compteur_jour++;
-                }
-            }
-
-            // pour le mois de novembre
-            for( i = 0    ; i < 30 ; i++ )
-            {
-                if( novembre[i] == 1 )
-                {
-                    compteur_jour++;
-                }
-            }
-
-            // pour le mois de décembre
-            for( i = 0    ; i < 31 ; i++ )
-            {
-                if( decembre[i] == 1 )
-                {
-                    compteur_jour++;
-                }
+                moisActuel(&i_mois, 0, jour, &compteur_jour);
             }
         break;
-
         case 10: // si le mois est octobre
-            for ( i = jour ; i < 31 ; i++ )
-            {
-                if( octobre[i+1] == 1 )
-                {
-                    compteur_jour++;
-                }
-            }
+            moisActuel(mois, 1, jour, &compteur_jour);
 
-            // pour le mois de novembre
-            for( i = 0    ; i < 30 ; i++ )
+            for( i_mois = *mois+1 ; i_mois < 13 ; i_mois++)
             {
-                if( novembre[i] == 1 )
-                {
-                    compteur_jour++;
-                }
-            }
-
-            // pour le mois de décembre
-            for( i = 0    ; i < 31 ; i++ )
-            {
-                if( decembre[i] == 1 )
-                {
-                    compteur_jour++;
-                }
+                moisActuel(&i_mois, 0, jour, &compteur_jour);
             }
         break;
-
         case 11: // si le mois est novembre
-            for( i = jour ; i < 30 ; i++ )
-            {
-                if( novembre[i+1] == 1 )
-                {
-                    compteur_jour++;
-                }
-            }
+            moisActuel(mois, 1, jour, &compteur_jour);
 
-            // pour le mois de décembre
-            for( i = 0    ; i < 31 ; i++ )
+            for( i_mois = *mois+1 ; i_mois < 13 ; i_mois++)
             {
-                if( decembre[i] == 1 )
-                {
-                    compteur_jour++;
-                }
+                moisActuel(&i_mois, 0, jour, &compteur_jour);
             }
         break;
         case 12: // si le mois est decembre
-            for( i = jour ; i < 31 ; i++ )
+            moisActuel(mois, 1, jour, &compteur_jour);
+
+            for( i_mois = *mois+1 ; i_mois < 13 ; i_mois++)
             {
-                if( decembre[i+1] == 1 )
-                {
-                    compteur_jour++;
-                }
+                moisActuel(&i_mois, 0, jour, &compteur_jour);
             }
         break;
-
     }
     /* Maintenant qu'on à fait pour la première année on peux faire les années suivant */
 
-    //i_ans = annee + 1; // ici c'est pour deuxième année
+    anneeSuivant(annee_maintenant, annee, compteur_jour);
+
+    soustractionDerniereAnnee(annee_maintenant, mois_maintenant, jour_maintenant, &resultat_addition);
+
 
     /* Tant que i_ans est plus petit que l'année de maintenant augmente de 1 pour l'année suivante */
     for( i_ans = annee + 1 ; i_ans <= annee_maintenant ; i_ans++ )
@@ -846,6 +380,7 @@ int parcourAnnee(short bissextile, int annee,            int mois,            in
                 i_jour == jour_maintenant+2 &&
                 i_ans  == annee_maintenant   )
             {
+                printf("Vous avez %d jours", compteur_jour);
                 // Si c'est le mois janvier et un jour spécifique au janvier donc cette CONDITION s'active
                 return compteur_jour;
             }
@@ -1070,11 +605,44 @@ int parcourAnnee(short bissextile, int annee,            int mois,            in
     printf("Merci d'avoir utilisee le programme\n");
 
     return compteur_jour;
+}
 
+void fonctionConversion(int *pointeurAnnee,       int *pointeurMois,        int *pointeurJour, int *pointeurTotalJours,
+                        int *pointeurJourEnCours, int *pointeurMoisEnCours, int *pointeurAnneeEnCours)
+{
+    short bissextile = 0;
+    /* Affiche le message Veuillez entree votre annee puis saisi l'annee et
+    va dans la fonction convertir_annee */
+    printf("Veuillez entree votre ANNEE de naissance : ");
+    scanf("%d", pointeurAnnee);
+    printf("Veuillez entree MOIS de naissance : ");
+    scanf("%d", pointeurMois);
+    printf("Veuillez entree votre JOURS de naissance : ");
+    scanf("%d", pointeurJour);
+    /* situé quel est le mois pour le nombre de jour */
+    estBissextile(pointeurAnnee, &bissextile);
 
+    *pointeurTotalJours = parcourAnnee(bissextile, pointeurAnnee, pointeurMois, pointeurAnnee,  pointeurAnneeEnCours, pointeurMoisEnCours, pointeurJourEnCours);
+}
 
+void demandeJourMoisAnneeActuel(int *pointeurAnneeEnCour,int *pointeurMoisEnCours,int *pointeurJourEnCours)
+{
+    /*on demande l'annee en cours, le mois en cours, et le jours en cour*/
+    printf("Quel est l'annee en cour : ");
+    scanf("%d", pointeurAnneeEnCour);
+    printf("Quel est le mois en cour : ");
+    scanf("%d", pointeurMoisEnCours);
+    printf("Quel est jour en cour : ");
+    scanf("%d", pointeurJourEnCours);
+}
 
-    }
+void menu()
+{
+    /* Affichage du menu et le choix de l'utilisateur */
+    printf("\t\t\t ==== Convertion d'annee ==== \n\n\n");
+    printf("\t 1 -> Nouvelle convertion \n");
+    printf("\t 2 -> Quitte \n\n\n");
+}
 
 
 /* La fonction main va prendre un argument dans l'avenir ...*/
@@ -1082,46 +650,34 @@ int main(int argc, char *argv[])
 {
     /*la variable choix va être le choix de quitte le programme ou faire une nouvelle
     conversion , annee pour l'annee de l'utilisateur*/
-    int choix = 0, annee = 2019, mois = 11, jour = 20 , anneeEnCour = 2020, moisEnCours = 5, jourEnCours = 6;
+    int choix = 0, annee = 2019, mois = 11, jour = 20,
+    int anneeEnCour = 2020, moisEnCours = 5, jourEnCours = 6;
     int totalJours = 0;
     /* Ici nous disons une petit message de bienvenue à l'utilisateur,
-    on demande l'annee en cours, le mois en cours, et le jours en cour et une PAUSE, on attends que l'utilisateur appuie sur une touche et
-    on efface le console puis viens la boucle do */
-    printf("Bienvienue sur ce petit programme de convertion d'annee en jours! \n");
+       appel de la fonction demandeJourMoisAnneeActuel et une PAUSE,
+       on attends que l'utilisateur appuie sur une touche et on efface le console puis viens la boucle do */
+    printf("Bienvenue sur ce petit programme de convertion d'annee en jours! \n");
 
- /*   printf("Quel est l'annee en cour : ");
-    scanf("%d", &anneeEnCour);
-    printf("Quel est le mois en cour : ");
-    scanf("%d", &moisEnCours);
-    printf("Quel est jour en cour : ");
-    scanf("%d", &jourEnCours);
+    /*Quel est la date actuel */
+    demandeJourMoisAnneeActuel(&anneeEnCour, &moisEnCours, &jourEnCours);
 
     system("PAUSE");
     system("cls");
-*/
+
     do
     {
-        /* Affichage du menu et le choix de l'utilisateur */
-        printf("\t\t\t ==== Convertion d'annee ==== \n\n\n");
-        printf("\t 1 -> Nouvelle convertion \n");
-        printf("\t 2 -> Quitte \n\n\n");
-        printf("\tNombre Jour : %d\tDate Actuel : %d-%d-%d\n\n",totalJours, jourEnCours, moisEnCours, anneeEnCour);
+        menu();
+
+        printf("\tNombre Jour : %d\t",totalJours);
+        printf("Date Actuel : %d-%d-%d\n\n", jourEnCours, moisEnCours, anneeEnCour);
         scanf("%d", &choix);
+
+
         switch(choix) // Début des condition
         {
             case 1: // si choix vaut 1 -> l'utilisateur veux faire une conversion
             {
-                /* Affiche le message Veuillez entree votre annee puis saisi l'annee et
-                va dans la fonction convertir_annee */
-                /*printf("Veuillez entree votre ANNEE de naissance : ");
-                scanf("%d", &annee);
-                printf("Veuillez entree MOIS de naissance : ");
-                scanf("%d", &mois);
-                printf("Veuillez entree votre JOURS de naissance : ");
-                scanf("%d", &jour);*/
-                /* situé quel est le mois pour le nombre de jour */
-                short bissextile = estBissextile(annee);
-                totalJours = parcourAnnee(bissextile, annee, mois, jour,  anneeEnCour, moisEnCours, jourEnCours);
+                fonctionConversion(&annee, &mois, &jour, &totalJours, &jourEnCours, &moisEnCours, &anneeEnCour);
 
                 break;
             }
@@ -1140,5 +696,5 @@ int main(int argc, char *argv[])
     }while(choix != 2);
 
 
-    return 0;
+    return EXIT_SUCCESS;
 }
