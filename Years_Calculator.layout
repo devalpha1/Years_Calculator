@@ -4,7 +4,16 @@
 	<File name="Nombre de jour mois.txt" open="1" top="0" tabpos="2">
 		<Cursor position="236" topLine="0" />
 	</File>
+	<File name="collecte_information.c" open="1" top="0" tabpos="3">
+		<Cursor position="742" topLine="0" />
+	</File>
+	<File name="collecte_information.h" open="1" top="0" tabpos="4">
+		<Cursor position="313" topLine="0" />
+	</File>
+	<File name="definition.h" open="1" top="0" tabpos="5">
+		<Cursor position="64" topLine="0" />
+	</File>
 	<File name="main.c" open="1" top="1" tabpos="1">
-		<Cursor position="898" topLine="9" />
+		<Cursor position="17531" topLine="592" />
 	</File>
 </CodeBlocks_layout_file>

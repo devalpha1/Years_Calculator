@@ -32,6 +32,11 @@
 			<Add option="-Wall" />
 		</Compiler>
 		<Unit filename="Nombre de jour mois.txt" />
+		<Unit filename="collecte_information.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="collecte_information.h" />
+		<Unit filename="definition.h" />
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
