@@ -1,0 +1,3 @@
+short janvier[31] = {1}, fevrier[29] = {0}, mars[31] = {1}, avril[30] = {1}, mai[31] = {1};
+short juin[30] = {1}, juillet[31] = {1}, aout[31] = {1}, septembre[30] = {1}, octobre[31] = {1};
+short novembre[30] = {1}, decembre[31] = {1};

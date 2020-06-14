@@ -1,4 +1,10 @@
 # depslib dependency file v1.0
-1586195159 source:e:\language c\years_calculator\main.c
+1588932970 source:e:\language c\years_calculator\main.c
 	<stdio.h>
+	<stdlib.h>
+
+1592158016 source:e:\language c\years_calculator\collecte_information.c
+	"collecte_information.h"
+
+1592038708 e:\language c\years_calculator\collecte_information.h
 
