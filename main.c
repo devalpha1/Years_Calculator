@@ -44,7 +44,7 @@ int main(int argc, char *argv[])
     /*la variable choix va être le choix de quitte le programme ou faire une nouvelle
     conversion , annee pour l'annee de l'utilisateur*/
     int choix = 0, annee = 1989, mois = 4, jour = 30;
-    int anneeEnCour = 2020, moisEnCours = 19, jourEnCours = 19;
+    int anneeEnCour = 2020, moisEnCours = 6, jourEnCours = 19;
     int totalJours = 0;
     /* Ici nous disons une petit message de bienvenue à l'utilisateur,
        appel de la fonction demandeJourMoisAnneeActuel et une PAUSE,

@@ -75,18 +75,9 @@ void lesAnneeSuivant(int *annee_maintenant, int *annee, int *compteur_jour)
     }
 
     /* faire le total des jours */
-    for ( i = 0 ; i < 200; i++ )
+    for ( i = 0 ; i < difference; i++ )
     {
         calculeAnnee(&tableauAnnee[i], compteur_jour);
-    }
-
-    if( tableauAnnee[difference] )
-    {
-        *compteur_jour = *compteur_jour - 366;
-    }
-    else
-    {
-        *compteur_jour = *compteur_jour - 365;
     }
 
 }
@@ -282,3 +273,4 @@ int parcourAnnee(short *bissextile, int *annee,            int *mois,           
 
     return compteur_jour;
 }
+
