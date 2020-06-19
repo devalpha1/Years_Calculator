@@ -10,5 +10,3 @@
 #define octobre 10
 #define novembre  11
 #define decembre 12
-
-

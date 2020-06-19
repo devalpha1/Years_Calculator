@@ -16,26 +16,25 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "collecte_information.c"
-#include "affichage.c"
-#include "mois.c"
-#include "annee.c"
 
 
-void fonctionConversion(int *pointeurAnnee,       int *pointeurMois,        int *pointeurJour, int *pointeurTotalJours,
-                        int *pointeurJourEnCours, int *pointeurMoisEnCours, int *pointeurAnneeEnCours)
+void dateDeNaissanceAJour(int *pointeurAnnee,       int *pointeurMois,        int *pointeurJour, int *pointeurTotalJours,
+                          int *pointeurJourEnCours, int *pointeurMoisEnCours, int *pointeurAnneeEnCours)
 {
     short bissextile = 0;
+
     /*Demande l'annee les information sur l'utilisateur */
-    demandeJourDeNaissance(pointeurJour);
+    /*demandeJourDeNaissance(pointeurJour);
 
     demandeMoisDeNaissance(pointeurMois);
 
-    demandeAnneeDeNaissance(pointeurAnnee);
+    demandeAnneeDeNaissance(pointeurAnnee);*/
     /* situé quel est le mois pour le nombre de jour */
     estBissextile(pointeurAnnee, &bissextile);
 
-    *pointeurTotalJours = parcourAnnee(bissextile, pointeurAnnee, pointeurMois, pointeurAnnee,  pointeurAnneeEnCours, pointeurMoisEnCours, pointeurJourEnCours);
+    *pointeurTotalJours = parcourAnnee(&bissextile, pointeurAnnee, pointeurMois,
+                                       pointeurJour, pointeurAnneeEnCours,
+                                       pointeurMoisEnCours, pointeurJourEnCours);
 }
 
 
@@ -44,8 +43,8 @@ int main(int argc, char *argv[])
 {
     /*la variable choix va être le choix de quitte le programme ou faire une nouvelle
     conversion , annee pour l'annee de l'utilisateur*/
-    int choix = 0, annee = 2019, mois = 11, jour = 20,
-    int anneeEnCour = 2020, moisEnCours = 5, jourEnCours = 6;
+    int choix = 0, annee = 1989, mois = 4, jour = 30;
+    int anneeEnCour = 2020, moisEnCours = 19, jourEnCours = 19;
     int totalJours = 0;
     /* Ici nous disons une petit message de bienvenue à l'utilisateur,
        appel de la fonction demandeJourMoisAnneeActuel et une PAUSE,
@@ -53,9 +52,9 @@ int main(int argc, char *argv[])
     printf("Bienvenue sur ce petit programme de convertion d'annee en jours! \n");
 
     /*Quel est la date actuel */
-    demandeJourActuel(&jourEnCours);
+    /*demandeJourActuel(&jourEnCours); !!!!!
     demandeMoisActuel(&moisEnCours);
-    demandeAnneeActuel(&anneeEnCour);
+    demandeAnneeActuel(&anneeEnCour);*/
 
     system("PAUSE");
     system("cls");
@@ -70,13 +69,14 @@ int main(int argc, char *argv[])
         printf("%d-", moisEnCours);
         printf("%d\n\n", anneeEnCour);
 
+        printf("Votre choix -> ");
         scanf("%d", &choix);
 
         switch(choix) // Début des condition
         {
             case 1: // si choix vaut 1 -> l'utilisateur veux faire une conversion
             {
-                fonctionConversion(&annee, &mois, &jour, &totalJours, &jourEnCours, &moisEnCours, &anneeEnCour);
+                dateDeNaissanceAJour(&annee, &mois, &jour, &totalJours, &jourEnCours, &moisEnCours, &anneeEnCour);
 
                 break;
             }

@@ -1,10 +1,48 @@
 # depslib dependency file v1.0
-1588932970 source:e:\language c\years_calculator\main.c
+1592424185 source:e:\language c\years_calculator\annee.c
+	"annee.h"
+	"definition.h"
+	"mois.h"
+	<stdio.h>
+
+1592311576 e:\language c\years_calculator\annee.h
+
+1592311368 e:\language c\years_calculator\definition.h
+
+1592421841 e:\language c\years_calculator\mois.h
+
+1592422689 source:e:\language c\years_calculator\collecte_information.c
+	"collecte_information.h"
+
+1592234656 source:e:\language c\years_calculator\definition.c
+
+1592423854 source:e:\language c\years_calculator\main.c
 	<stdio.h>
 	<stdlib.h>
 
-1592158016 source:e:\language c\years_calculator\collecte_information.c
-	"collecte_information.h"
+1592422579 e:\language c\years_calculator\collecte_information.c
 
-1592038708 e:\language c\years_calculator\collecte_information.h
+1592422039 e:\language c\years_calculator\affichage.c
+	<stdio.h>
+	"affichage.h"
+
+1592234655 e:\language c\years_calculator\affichage.h
+
+1592422130 e:\language c\years_calculator\mois.c
+	"mois.h"
+
+1592422264 e:\language c\years_calculator\annee.c
+	"annee.h"
+	"definition.h"
+	"mois.h"
+	<stdio.h>
+
+1592424567 source:e:\language c\years_calculator\mois.c
+	"mois.h"
+
+1592422039 source:e:\language c\years_calculator\affichage.c
+	<stdio.h>
+	"affichage.h"
+
+1592234656 e:\language c\years_calculator\collecte_information.h
 

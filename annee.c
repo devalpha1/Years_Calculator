@@ -1,31 +1,35 @@
 #include "annee.h"
 #include "definition.h"
+#include "mois.h"
+#include <stdio.h>
 
 /* erreur c'est tableau Annee car on ne peux que Modifier une seul case dans un tableau */
 void calculeAnnee(int *tableauAnnee, int *compteur_jour)
 {
-    int i = 0, addition = 0;
+    int i = 0;
 
-    if( tableauAnnee == 0 )
+    if( *tableauAnnee == 0 )
     {
         *compteur_jour += 365;
     }
-    else if ( tableauAnnee == 1)
+    else if ( *tableauAnnee == 1)
     {
         *compteur_jour += 366;
     }
 
 }
-
-void anneeSuivant(int *annee_maintenant, int *annee, int *compteur_jour)
+/* calcule pour les autres année de la date d'anniversaire */
+void lesAnneeSuivant(int *annee_maintenant, int *annee, int *compteur_jour)
 {
-    int tableauAnnee[200] = {-1}, i = 0, stockAnnee = annee;
+    int tableauAnnee[200] = {-1}, i = 0, stockAnnee = *annee;
+    int difference = *annee_maintenant - *annee;
 
 
     short bissextile = 0;
 
     stockAnnee++;
 
+    /* initilisation de tableauAnnee */
     for( i = 0 ; i < 200 ; i++ )
     {
         tableauAnnee[i] = -1;
@@ -34,8 +38,10 @@ void anneeSuivant(int *annee_maintenant, int *annee, int *compteur_jour)
     i = 0;
 
     /* va déterminté si la deuxième année est bossextile */
-    estBissextile(stockAnnee, &bissextile);
+    estBissextile(&stockAnnee, &bissextile);
 
+    /* 1 pour dire il est bissextile et 0 pour dire que c'est pas
+       bissextile */
     if ( bissextile )
     {
         tableauAnnee[i] = 1;
@@ -48,9 +54,12 @@ void anneeSuivant(int *annee_maintenant, int *annee, int *compteur_jour)
     i++;
     stockAnnee++;
 
+    /* pour les annéee suivant affectation de la valeur binaire 1 ou
+       0 pour les années suivant */
+
     while( stockAnnee != *annee_maintenant )
     {
-        estBissextile(stockAnnee, &bissextile);
+        estBissextile(&stockAnnee, &bissextile);
 
         if ( bissextile )
         {
@@ -65,9 +74,19 @@ void anneeSuivant(int *annee_maintenant, int *annee, int *compteur_jour)
         stockAnnee++;
     }
 
+    /* faire le total des jours */
     for ( i = 0 ; i < 200; i++ )
     {
         calculeAnnee(&tableauAnnee[i], compteur_jour);
+    }
+
+    if( tableauAnnee[difference] )
+    {
+        *compteur_jour = *compteur_jour - 366;
+    }
+    else
+    {
+        *compteur_jour = *compteur_jour - 365;
     }
 
 }
@@ -79,7 +98,7 @@ void soustractionDerniereAnnee(int *annee_maintenant, int *mois_maintenant, int 
     int i = 0, j = 0, nombreDeJourARajoute = 0;
     short bissextile = 0;
 
-    estBissextile(*annee_maintenant, &bissextile);
+    estBissextile(annee_maintenant, &bissextile);
 
     for ( i = 1 ; i < *mois_maintenant+1 ; i++ )
     {
@@ -142,13 +161,20 @@ int parcourAnnee(short *bissextile, int *annee,            int *mois,           
 
     int i = 0; // pour le mois de février
 
+    /* en fonction du premier mois de naissance de l'utilisateur */
     switch(*mois)
     {
-        case janvier:
+        /* ajoute au compteur de jour le nombre de jour - sur le
+           total du mois de l'utilisateur puis ajoute pour les mois suivant
+           jusqu'au mois de décembre */
+            case janvier:
             moisActuel(mois, jour, &compteur_jour);
+
+            compteur_jour = *jour - compteur_jour;
+
             for( i_mois = *mois+1 ; i_mois < 13 ; i_mois++)
             {
-                moisActuel(&i_mois, 0, jour, &compteur_jour);
+                moisActuel(&i_mois, jour, &compteur_jour);
             }
         break;
         case fevrier:
@@ -156,7 +182,7 @@ int parcourAnnee(short *bissextile, int *annee,            int *mois,           
 
             for( i_mois = *mois+1 ; i_mois < 13 ; i_mois++)
             {
-                moisActuel(&i_mois, 0, jour, &compteur_jour);
+                moisActuel(&i_mois, jour, &compteur_jour);
             }
         break;
         case mars: // si le mois est mars
@@ -164,15 +190,17 @@ int parcourAnnee(short *bissextile, int *annee,            int *mois,           
 
             for( i_mois = *mois+1 ; i_mois < 13 ; i_mois++)
             {
-                moisActuel(&i_mois, 0, jour, &compteur_jour);
+                moisActuel(&i_mois, jour, &compteur_jour);
             }
         break;
         case avril: // si le mois est avril
             moisActuel(mois, jour, &compteur_jour);
 
+            compteur_jour = *jour - compteur_jour;
+
             for( i_mois = *mois+1 ; i_mois < 13 ; i_mois++)
             {
-                moisActuel(&i_mois, 0, jour, &compteur_jour);
+                moisActuel(&i_mois, jour, &compteur_jour);
             }
         break;
         case mai: // si le mois est mai
@@ -180,7 +208,7 @@ int parcourAnnee(short *bissextile, int *annee,            int *mois,           
 
             for( i_mois = *mois+1 ; i_mois < 13 ; i_mois++)
             {
-                moisActuel(&i_mois, 0, jour, &compteur_jour);
+                moisActuel(&i_mois, jour, &compteur_jour);
             }
         break;
         case juin: // si le mois est juin
@@ -188,7 +216,7 @@ int parcourAnnee(short *bissextile, int *annee,            int *mois,           
 
             for( i_mois = *mois+1 ; i_mois < 13 ; i_mois++)
             {
-                moisActuel(&i_mois, 0, jour, &compteur_jour);
+                moisActuel(&i_mois, jour, &compteur_jour);
             }
         break;
         case juillet: // si le mois est juillet
@@ -196,7 +224,7 @@ int parcourAnnee(short *bissextile, int *annee,            int *mois,           
 
             for( i_mois = *mois+1 ; i_mois < 13 ; i_mois++)
             {
-                moisActuel(&i_mois, 0, jour, &compteur_jour);
+                moisActuel(&i_mois, jour, &compteur_jour);
             }
         break;
         case aout: // si le mois est aout
@@ -204,7 +232,7 @@ int parcourAnnee(short *bissextile, int *annee,            int *mois,           
 
             for( i_mois = *mois+1 ; i_mois < 13 ; i_mois++)
             {
-                moisActuel(&i_mois, 0, jour, &compteur_jour);
+                moisActuel(&i_mois, jour, &compteur_jour);
             }
         break;
         case septembre: // si le mois est septembre
@@ -212,7 +240,7 @@ int parcourAnnee(short *bissextile, int *annee,            int *mois,           
 
             for( i_mois = *mois+1 ; i_mois < 13 ; i_mois++)
             {
-                moisActuel(&i_mois, 0, jour, &compteur_jour);
+                moisActuel(&i_mois, jour, &compteur_jour);
             }
         break;
         case octobre: // si le mois est octobre
@@ -220,7 +248,7 @@ int parcourAnnee(short *bissextile, int *annee,            int *mois,           
 
             for( i_mois = *mois+1 ; i_mois < 13 ; i_mois++)
             {
-                moisActuel(&i_mois, 0, jour, &compteur_jour);
+                moisActuel(&i_mois, jour, &compteur_jour);
             }
         break;
         case novembre: // si le mois est novembre
@@ -228,7 +256,7 @@ int parcourAnnee(short *bissextile, int *annee,            int *mois,           
 
             for( i_mois = *mois+1 ; i_mois < 13 ; i_mois++)
             {
-                moisActuel(&i_mois, 0, jour, &compteur_jour);
+                moisActuel(&i_mois, jour, &compteur_jour);
             }
         break;
         case decembre: // si le mois est decembre
@@ -236,248 +264,17 @@ int parcourAnnee(short *bissextile, int *annee,            int *mois,           
 
             for( i_mois = *mois+1 ; i_mois < 13 ; i_mois++)
             {
-                moisActuel(&i_mois, 0, jour, &compteur_jour);
+                moisActuel(&i_mois, jour, &compteur_jour);
             }
         break;
     }
     /* Maintenant qu'on à fait pour la première année on peux faire les années suivant */
 
-    anneeSuivant(annee_maintenant, annee, &compteur_jour);
+    lesAnneeSuivant(annee_maintenant, annee, &compteur_jour);
 
     soustractionDerniereAnnee(annee_maintenant, mois_maintenant, jour_maintenant, &resultat_addition);
 
-
-    /* Tant que i_ans est plus petit que l'année de maintenant augmente de 1 pour l'année suivante */
-    for( i_ans = annee + 1 ; i_ans <= annee_maintenant ; i_ans++ )
-    {
-        i_mois = 1;
-        i_jour = 1;
-
-        for( i = 0 ; i < 31 ; i++ ) /* pour le mois de janvier :  */
-        {
-            if( i_mois == mois_maintenant &&
-                i_jour == jour_maintenant+2 &&
-                i_ans  == annee_maintenant   )
-            {
-                printf("Vous avez %d jours", compteur_jour);
-                // Si c'est le mois janvier et un jour spécifique au janvier donc cette CONDITION s'active
-                return compteur_jour;
-            }
-            else
-            {
-                i_jour++;
-                compteur_jour++;
-            }
-        }
-
-        i_mois = 2; // le mois janvier est fini donc maintenant c'est au mois de février
-        i_jour = 1; // réinitialisation du nombre de jour pour le mois suivant
-
-        for( i = 0 ; i < moisFevrier(i_ans) ; i++ ) /* pour le mois de janvier : */
-        {
-            if( i_mois == mois_maintenant &&
-                i_jour == jour_maintenant+2 &&
-                i_ans  ==  annee_maintenant    )
-            {
-                // Si c'est le mois de février et un jour spécifique au février donc cette Condition s'active
-                return compteur_jour;
-            }
-            else
-            {
-                i_jour++;
-                compteur_jour++;
-            }
-        }
-
-        i_mois = 3;
-        i_jour = 1;
-
-        for( i = 0 ; i < 31 ; i++ ) /* pour le mois de mars : */
-        {
-            if( i_mois == mois_maintenant &&
-                i_jour == jour_maintenant+2 &&
-                i_ans  == annee_maintenant    )
-            {
-                // Si c'est le mois de mars et un jour spécifique au mars dobc cette CONDITION s'active
-                return compteur_jour;
-            }
-            else
-            {
-                i_jour++;
-                compteur_jour++;
-            }
-        }
-
-        i_mois = 4;
-        i_jour = 1;
-
-        for( i = 0 ; i < 30 ; i++ )
-        {
-            if( i_mois == mois_maintenant &&
-                i_jour == jour_maintenant+2 &&
-                i_ans  == annee_maintenant    )
-            {
-                // Si c'est le mois d'avril et un jour spéicifique au avril donc cette CONDITION s'active
-                return compteur_jour;
-            }
-            else
-            {
-                i_jour++;
-                compteur_jour++;
-            }
-        }
-
-        i_mois = 5;
-        i_jour = 1;
-
-        for( i = 0 ; i < 31 ; i++ )
-        {
-            if( i_mois == mois_maintenant &&
-                i_jour == jour_maintenant+2 &&
-                i_ans  == annee_maintenant    )
-            {
-                return compteur_jour;
-            }
-            else
-            {
-                i_jour++;
-                compteur_jour++;
-            }
-        }
-
-        i_mois = 6;
-        i_jour = 1;
-
-        for( i = 0 ; i < 30 ; i++ )
-        {
-            if( i_mois == mois_maintenant &&
-                i_jour == jour_maintenant+2 &&
-                i_ans  == annee_maintenant    )
-            {
-                //
-                return compteur_jour;
-            }
-            else
-            {
-                i_jour++;
-                compteur_jour++;
-            }
-        }
-
-        i_mois = 7;
-        i_jour = 1;
-
-        for( i = 0 ; i < 31 ; i++ )
-        {
-            if( i_mois == mois_maintenant &&
-                i_jour == jour_maintenant+2 &&
-                i_ans  == annee_maintenant    )
-            {
-                //
-                return compteur_jour;
-            }
-            else
-            {
-                i_jour++;
-                compteur_jour++;
-            }
-        }
-
-        i_mois = 8;
-        i_jour = 1;
-
-        for( i = 0 ; i < 31 ; i++ )
-        {
-            if( i_mois == mois_maintenant &&
-                i_jour == jour_maintenant+2 &&
-                i_ans  == annee_maintenant    )
-            {
-                //
-                 return compteur_jour;
-            }
-            else
-            {
-                i_jour++;
-                compteur_jour++;
-            }
-        }
-
-        i_mois = 9;
-        i_jour = 1;
-
-        for( i = 0 ; i < 30 ; i++ )
-        {
-            if( i_mois == mois_maintenant &&
-                i_jour == jour_maintenant+2 &&
-                i_ans  == annee_maintenant    )
-            {
-                //
-                return compteur_jour;
-            }
-            else
-            {
-                i_jour++;
-                compteur_jour++;
-            }
-        }
-
-        i_mois = 10;
-        i_jour = 1;
-
-        for ( i = 0 ; i < 31 ; i++ )
-        {
-            if( i_mois == mois_maintenant &&
-                i_jour == jour_maintenant+2 &&
-                i_ans  == annee_maintenant   )
-            {
-                //
-                return compteur_jour;
-            }
-            else
-            {
-                i_jour++;
-                compteur_jour++;
-            }
-        }
-
-        i_mois = 11;
-        i_jour = 1;
-
-        for( i = 0 ; i < 30 ; i++ )
-        {
-            if( i_mois == mois_maintenant &&
-                i_jour == jour_maintenant+2 &&
-                i_ans  == annee_maintenant   )
-                {
-                   //
-                   return compteur_jour;
-                }
-                else
-                {
-                    i_jour++;
-                    compteur_jour++;
-                }
-        }
-
-        i_mois = 12;
-        i_jour = 1;
-
-        for( i = 0 ; i < 31 ; i++ )
-        {
-            if( i_mois == mois_maintenant &&
-                i_jour == jour_maintenant+2 &&
-                i_ans  == annee_maintenant   )
-            {
-                //
-                return compteur_jour;
-            }
-            else
-            {
-                i_jour++;
-                compteur_jour++;
-            }
-        }
-    } // fin de condition pour un ans
+    compteur_jour = resultat_addition + compteur_jour;
 
     printf("Vous avez %ld jours", compteur_jour);
 

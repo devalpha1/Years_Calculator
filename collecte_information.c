@@ -21,7 +21,7 @@ void demandeAnneeActuel(int *pointeurAnneeActuel)
 void demandeJourDeNaissance( int *pointeurJour)
 {
     printf("Veuillez entree votre JOURS de naissance : ");
-    scanf("%d", *pointeurJour);
+    scanf("%d", pointeurJour);
 }
 
 void demandeMoisDeNaissance(int *pointeurMois)
