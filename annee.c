@@ -75,9 +75,11 @@ void lesAnneeSuivant(int *annee_maintenant, int *annee, int *compteur_jour)
     }
 
     /* faire le total des jours */
-    for ( i = 0 ; i < difference; i++ )
+    i = 0;
+    while( tableauAnnee[i] != -1 )
     {
         calculeAnnee(&tableauAnnee[i], compteur_jour);
+        i++;
     }
 
 }
@@ -91,12 +93,12 @@ void soustractionDerniereAnnee(int *annee_maintenant, int *mois_maintenant, int 
 
     estBissextile(annee_maintenant, &bissextile);
 
-    for ( i = 1 ; i < *mois_maintenant+1 ; i++ )
+    for ( i = 1 ; i < *mois_maintenant ; i++ )
     {
-        if( i == 1 || i == 3 || i == 5 || i == 5 || i == 7 ||
+        if( i == 1 || i == 3 || i == 5 || i == 7 ||
             i == 10 || i == 12 )
         {
-            for( j = 1 ; j < 30+1 ; j++, nombreDeJourARajoute++ )
+            for( j = 1 ; j < 31+1 ; j++, nombreDeJourARajoute++ )
             {
                 if( *mois_maintenant == i && *jour_maintenant == j )
                 {
@@ -106,7 +108,7 @@ void soustractionDerniereAnnee(int *annee_maintenant, int *mois_maintenant, int 
         }
         else if( i == 4 || i == 6 || i == 9 || i == 11 )
         {
-            for( j = 1 ; j < 29+1 ; j++, nombreDeJourARajoute++ )
+            for( j = 1 ; j < 30+1 ; j++, nombreDeJourARajoute++ )
             {
                 if( *mois_maintenant == i && *jour_maintenant == j )
                 {
@@ -152,113 +154,29 @@ int parcourAnnee(short *bissextile, int *annee,            int *mois,           
 
     int i = 0; // pour le mois de février
 
+
     /* en fonction du premier mois de naissance de l'utilisateur */
-    switch(*mois)
+    if( fevrier == *mois)
     {
-        /* ajoute au compteur de jour le nombre de jour - sur le
-           total du mois de l'utilisateur puis ajoute pour les mois suivant
-           jusqu'au mois de décembre */
-            case janvier:
-            moisActuel(mois, jour, &compteur_jour);
+        moisFevrier(annee,  &compteur_jour, jour);
 
-            compteur_jour = *jour - compteur_jour;
-
-            for( i_mois = *mois+1 ; i_mois < 13 ; i_mois++)
-            {
-                moisActuel(&i_mois, jour, &compteur_jour);
-            }
-        break;
-        case fevrier:
-            moisFevrier(annee, &compteur_jour, jour);
-
-            for( i_mois = *mois+1 ; i_mois < 13 ; i_mois++)
-            {
-                moisActuel(&i_mois, jour, &compteur_jour);
-            }
-        break;
-        case mars: // si le mois est mars
-            moisActuel(mois, jour, &compteur_jour);
-
-            for( i_mois = *mois+1 ; i_mois < 13 ; i_mois++)
-            {
-                moisActuel(&i_mois, jour, &compteur_jour);
-            }
-        break;
-        case avril: // si le mois est avril
-            moisActuel(mois, jour, &compteur_jour);
-
-            compteur_jour = *jour - compteur_jour;
-
-            for( i_mois = *mois+1 ; i_mois < 13 ; i_mois++)
-            {
-                moisActuel(&i_mois, jour, &compteur_jour);
-            }
-        break;
-        case mai: // si le mois est mai
-            moisActuel(mois, jour, &compteur_jour);
-
-            for( i_mois = *mois+1 ; i_mois < 13 ; i_mois++)
-            {
-                moisActuel(&i_mois, jour, &compteur_jour);
-            }
-        break;
-        case juin: // si le mois est juin
-            moisActuel(mois, jour, &compteur_jour);
-
-            for( i_mois = *mois+1 ; i_mois < 13 ; i_mois++)
-            {
-                moisActuel(&i_mois, jour, &compteur_jour);
-            }
-        break;
-        case juillet: // si le mois est juillet
-            moisActuel(mois, jour, &compteur_jour);
-
-            for( i_mois = *mois+1 ; i_mois < 13 ; i_mois++)
-            {
-                moisActuel(&i_mois, jour, &compteur_jour);
-            }
-        break;
-        case aout: // si le mois est aout
-            moisActuel(mois, jour, &compteur_jour);
-
-            for( i_mois = *mois+1 ; i_mois < 13 ; i_mois++)
-            {
-                moisActuel(&i_mois, jour, &compteur_jour);
-            }
-        break;
-        case septembre: // si le mois est septembre
-            moisActuel(mois, jour, &compteur_jour);
-
-            for( i_mois = *mois+1 ; i_mois < 13 ; i_mois++)
-            {
-                moisActuel(&i_mois, jour, &compteur_jour);
-            }
-        break;
-        case octobre: // si le mois est octobre
-            moisActuel(mois, jour, &compteur_jour);
-
-            for( i_mois = *mois+1 ; i_mois < 13 ; i_mois++)
-            {
-                moisActuel(&i_mois, jour, &compteur_jour);
-            }
-        break;
-        case novembre: // si le mois est novembre
-            moisActuel(mois, jour, &compteur_jour);
-
-            for( i_mois = *mois+1 ; i_mois < 13 ; i_mois++)
-            {
-                moisActuel(&i_mois, jour, &compteur_jour);
-            }
-        break;
-        case decembre: // si le mois est decembre
-            moisActuel(mois, jour, &compteur_jour);
-
-            for( i_mois = *mois+1 ; i_mois < 13 ; i_mois++)
-            {
-                moisActuel(&i_mois, jour, &compteur_jour);
-            }
-        break;
     }
+    else
+    {
+        moisActuel(&i_mois, jour, &compteur_jour);
+    }
+
+    compteur_jour = *jour - compteur_jour;
+
+    /* ajoute au compteur de jour le nombre de jour - sur le
+    total du mois de l'utilisateur puis ajoute pour les mois suivant
+    jusqu'au mois de décembre */
+
+    for( i_mois = *mois+1 ; i_mois < 13 ; i_mois++)
+    {
+        moisActuel(&i_mois, jour, &compteur_jour);
+    }
+
     /* Maintenant qu'on à fait pour la première année on peux faire les années suivant */
 
     lesAnneeSuivant(annee_maintenant, annee, &compteur_jour);
