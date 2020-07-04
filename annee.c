@@ -192,3 +192,25 @@ int parcourAnnee(short *bissextile, int *annee,            int *mois,           
     return compteur_jour;
 }
 
+void demandeAnneSiBissextile()
+{
+    long annee = 0, resultat = 0;
+
+    printf("Quel est l'annee s'il vous plait ? ");
+    scanf("%d", &annee);
+
+    resultat = annee % 4;
+
+    if ( resultat > 0 )
+    {
+        printf("%d", annee);
+        printf(" est pas bissextile");
+
+    }
+    else
+    {
+        printf("%d", annee);
+        printf(" est bissextile");
+    }
+}
+
