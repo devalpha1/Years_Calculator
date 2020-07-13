@@ -80,7 +80,12 @@ int main(int argc, char *argv[])
 
                 break;
             }
-            case 2: // si l'utilisateur veux quittée le programme
+            case 2:
+            {
+                demandeAnneSiBissextile();
+                break;
+            }
+            case 3: // si l'utilisateur veux quittée le programme
             {
                 system("CLS");
                 printf("Merci d'avoir utilisee le programme");
@@ -92,7 +97,7 @@ int main(int argc, char *argv[])
                 break;
             }
         }
-    }while(choix != 2);
+    }while(choix != 3);
 
 
     return EXIT_SUCCESS;

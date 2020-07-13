@@ -201,6 +201,7 @@ void demandeAnneSiBissextile()
 
     resultat = annee % 4;
 
+    system("CLS");
     if ( resultat > 0 )
     {
         printf("%d", annee);
@@ -212,5 +213,6 @@ void demandeAnneSiBissextile()
         printf("%d", annee);
         printf(" est bissextile");
     }
+    printf("\n\n");
 }
 
